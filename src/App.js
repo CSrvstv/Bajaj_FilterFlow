@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import style from "./App.css";
 function App() {
+  const [apiInput, setApiInput] = useState("");
+  const [filteredResponse, setFilteredResponse] = useState("");
+  const [filterOptions, setFilterOptions] = useState([]);
+
+  const handleSubmit = () => {
+    try {
+      const data = JSON.parse(apiInput);
+      const filteredData = data.data.filter((item) => typeof item === "number");
+      setFilteredResponse(`Numbers: ${filteredData.join(", ")}`);
+      setFilterOptions(filteredData);
+    } catch (error) {
+      setFilteredResponse("Invalid JSON input");
+    }
+  };
+
+  const handleFilterChange = (event) => {
+    const { checked } = event.target;
+    const value = event.target.value;
+
+    if (checked) {
+      setFilterOptions([...filterOptions, value]);
+    } else {
+      setFilterOptions(filterOptions.filter((item) => item !== value));
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h2>API Input</h2>
+      <textarea
+        className="input-field"
+        value={apiInput}
+        onChange={(e) => setApiInput(e.target.value)}
+      />
+      <button className="submit-button" onClick={handleSubmit}>
+        Submit
+      </button>
+
+      <h2>Multi Filter</h2>
+      <div className="filter-container">
+        {filterOptions.map((option, index) => (
+          <label key={index} className="filter-option">
+            <input
+              type="checkbox"
+              value={option}
+              checked={filterOptions.includes(option)}
+              onChange={handleFilterChange}
+            />
+            {option}
+          </label>
+        ))}
+      </div>
+
+      <h2>Filtered Response</h2>
+      <p className="response">{filteredResponse}</p>
     </div>
   );
 }
