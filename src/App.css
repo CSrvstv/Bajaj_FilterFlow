@@ -1,0 +1,42 @@
+.container {
+  width: 500px;
+  margin: 200px 450px 200px 450px ;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input {
+  width: 90%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.submit {
+  background-color: #0c73da;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width:95%;
+  margin-top: 10px;
+}
+
+.fcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.foption {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.response {
+  margin-top: 10px;
+}
